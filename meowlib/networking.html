@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="../main.css" rel="stylesheet">
+<title>united meows $ meowsite</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<link rel="stylesheet"
+      href="//unpkg.com/@highlightjs/cdn-assets@11.0.1/styles/default.min.css">
+<script src="//unpkg.com/@highlightjs/cdn-assets@11.0.1/highlight.min.js"></script>
+
+<link rel="apple-touch-icon" sizes="57x57" href="../favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff"> 
+
+</head>
+<body>
+<div id="navbar" style="margin-bottom: 30px;position: fixed;margin-top: -20px">
+  <img style='width: 32px; height:32px;' src="../logo.png"/>
+  <a id="homebtn" href="#home"><i class="fas fa-home"></i> Home</a>
+  <a id="newsbtn" href="#news"><i class="fab fa-uncharted"></i> Projects</a>
+  <a id="donatebtn" href="#donate"><i class="fas fa-donate"></i> Donate</a>
+  <a id="contactbtn" href="#contact"><i class="fas fa-address-card"></i> Contact</a>
+</div>
+<div class="projects sticky">
+    <span class="topTitle">Subs</span>
+    <hr color="#401f53"/>
+    <div class="title">
+        <a class="subLink" href="../index.html">News</a>
+    </div>
+    <div class="title">
+        <a class="subLink" href="#">Meowlib</a>
+        <div class="subTitle">
+            <a class="subLink" href="#">Networking</a><br>
+            <a class="subLink" href="async.html">Async</a>
+        </div>
+    </div>
+    <div class="title">
+        <a class="subLink" href="../1.8.10/index.html">1.8.10</a>
+    </div>
+    <div class="title">
+        <a class="subLink" href="../complexer/usage.html">Complexer</a>
+    </div>
+    <div class="title">
+         <a class="subLink" href="../pisiEventApi/usage.html">pisiEventApi</a>
+    </div>
+    <div class="title">
+         <a class="subLink" href="../sh4ll/usage.html">Sh4ll</a>
+    </div>
+</div>
+<div class="main">
+    <h2>meowlib</h2>
+    <h3>Networking</h3>
+    <h4>Creating a TCP Server</h4>
+<pre>
+<code class="language-java">WTcpServer server = new WTCPServer(IPAddress.ANY, 2173);
+server.listen();
+</code></pre>
+<h4>Connection Event</h4>
+<span class="desc">When a client gets connected the 'connectionRequestEvent' event gets called</span>
+<pre><code class="language-java">server.connectionRequestEvent.bind(new DSConnectionRequest() {
+    @Override
+    public void onClientConnecting(SocketClient client) {
+        System.out.println("Client Connected");
+    }
+});
+</code></pre>
+<h4>Data Received Event</h4>
+<pre><code class="language-java">server.dataReceivedEvent.bind(new DSDataReceived() {
+    @Override
+    public void onDataReceived(SocketClient client, byte[] data) {
+
+    }
+});
+
+</code></pre>
+
+<h4>Interacting with client</h4>
+<span class="desc">You can kick the client using</span>
+<pre><code class="language-java">client.kick();
+// or
+server.kick(client);
+</code></pre>
+<span class="desc">You can send data to client using</span>
+<pre><code class="language-java">client.send(data); // data is byte[]
+</code></pre>
+<h3>SocketClient fields/methods</h3>
+<table class="tableDesc">
+<tr>
+    <th>Method/Field</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>connectedServer()</td>
+    <td>returns the server client connected to</td>
+</tr>
+<tr>
+    <td>socketChannel()</td>
+    <td>returns the raw nio SocketChannel</td>
+</tr>
+<tr>
+    <td>getWriteQueue()</td>
+    <td>returns bytes in queue</td>
+</tr>
+<tr>
+    <td>kick()</td>
+    <td>kicks client from the server</td>
+</tr>
+<tr>
+    <td>close()</td>
+    <td>closes the connection (use kick() instead)</td>
+</tr>
+</table>
+
+<h3>WTcpServer fields/methods</h3>
+<table class="tableDesc">
+<tr>
+    <th>Method/Field</th>
+    <th>Description</th>
+</tr>
+<tr>
+    <td>listen()</td>
+    <td>starts listening the socket</td>
+</tr>
+<tr>
+    <td>stop()</td>
+    <td>stops listening the socket</td>
+</tr>
+<tr>
+    <td>connectionRequestEvent</td>
+    <td>connection listener event</td>
+</tr>
+<tr>
+    <td>dataReceivedEvent</td>
+    <td>data received listener event</td>
+</tr>
+<tr>
+    <td>setKeepAlive(boolean)</td>
+    <td>built in keepalive system</td>
+</tr>
+<tr>
+    <td>bindAddress()</td>
+    <td>returns the listening socket address</td>
+</tr>
+</table>
+
+</div>
+
+
+<script>hljs.highlightAll();</script>
+</body>
+
+
+
+
+</html>
